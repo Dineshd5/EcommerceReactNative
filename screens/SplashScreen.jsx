@@ -1,20 +1,37 @@
-// SplashScreen.js
 import React, { useEffect } from 'react';
 import { Text, StyleSheet, Image, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.replace('StartScreen'); // or navigate(), but replace() avoids going back
-    }, 100); // 2.5 seconds
+    const checkAppState = async () => {
+      try {
+        const isFirstLaunch = await AsyncStorage.getItem('isFirstLaunch');
+        const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
 
-    return () => clearTimeout(timer);
+        setTimeout(async () => {
+          if (isFirstLaunch === null) {
+            // first time
+            await AsyncStorage.setItem('isFirstLaunch', 'false');
+            navigation.replace('StartScreen'); // 👈 Show onboarding screen
+          } else if (isLoggedIn === 'true') {
+            navigation.replace('GetStarted'); // Already logged in
+          } else {
+            navigation.replace('signIn'); // Not logged in
+          }
+        }, 2000);
+      } catch (error) {
+        console.log('SplashScreen error:', error);
+        navigation.replace('signIn');
+      }
+    };
+
+    checkAppState();
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Replace the image below with your logo */}
       <View style={styles.splashContainer}>
         <Image
           source={require('../assets/images/Logo.png')}

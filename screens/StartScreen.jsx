@@ -11,6 +11,7 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Gstyles } from '../styles/global';
 import { slides } from '../data/slides';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const StartScreen = ({ navigation }) => {
   const sliderRef = useRef(null);
@@ -18,6 +19,15 @@ const StartScreen = ({ navigation }) => {
 
   const onSlideChange = index => {
     setCurrent(index);
+  };
+
+  const handleCompleteIntro = async () => {
+    try {
+      await AsyncStorage.setItem('hasSeenIntro', 'true');
+      navigation.replace('signIn');
+    } catch (err) {
+      console.error('Error saving hasSeenIntro:', err);
+    }
   };
 
   const renderItem = ({ item }) => (
@@ -38,17 +48,13 @@ const StartScreen = ({ navigation }) => {
           <Text style={styles.TextSpan}>{current + 1}</Text> / {slides.length}
         </Text>
         {current !== slides.length - 1 && (
-          <TouchableOpacity
-            onPress={() =>
-              sliderRef.current?.goToSlide(slides.length - 1, true)
-            }
-          >
+          <TouchableOpacity onPress={handleCompleteIntro}>
             <Text style={styles.button}>Skip</Text>
           </TouchableOpacity>
         )}
       </View>
 
-      {/* Slider content */}
+      {/* Slider */}
       <AppIntroSlider
         ref={sliderRef}
         data={slides}
@@ -56,12 +62,12 @@ const StartScreen = ({ navigation }) => {
         showDoneButton={false}
         showNextButton={false}
         showPrevButton={false}
-        onSlideChange={(index, lastIndex) => onSlideChange(index)}
+        onSlideChange={onSlideChange}
         dotClickEnabled={true}
         renderPagination={() => null}
       />
 
-      {/* Bottom controls */}
+      {/* Bottom Controls */}
       <View style={styles.buttonRow}>
         {/* Prev */}
         <View style={styles.buttonContainer}>
@@ -91,7 +97,7 @@ const StartScreen = ({ navigation }) => {
         {/* Next / Get Started */}
         <View style={[styles.button, { flexShrink: 1, paddingHorizontal: 2 }]}>
           {current === slides.length - 1 ? (
-            <TouchableOpacity onPress={() => navigation.replace('signIn')}>
+            <TouchableOpacity onPress={handleCompleteIntro}>
               <Text
                 style={[styles.button, Gstyles.primaryColor]}
                 includeFontPadding={false}
@@ -128,6 +134,7 @@ const styles = StyleSheet.create({
   },
   pageCount: {
     fontSize: 16,
+    padding: 10,
     marginLeft: 10,
     color: 'rgba(168, 168, 169, 1)',
     fontFamily: 'Montserrat-Bold',
@@ -139,9 +146,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Bold',
   },
   slide: {
+    flex: 1,
     alignItems: 'center',
-    paddingBottom: 20,
+    justifyContent: 'center',
   },
+
   title: {
     fontSize: 24,
     fontFamily: 'Montserrat-ExtraBold',
