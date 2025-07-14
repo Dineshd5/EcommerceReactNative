@@ -32,20 +32,21 @@ const SignIn = () => {
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
   const handleLogin = async () => {
-    try {
-      const storedUsername = await AsyncStorage.getItem('username');
-      const storedPassword = await AsyncStorage.getItem('password');
+    navigation.replace('GetStarted');
+    // try {
+    //   const storedUsername = await AsyncStorage.getItem('username');
+    //   const storedPassword = await AsyncStorage.getItem('password');
 
-      if (username === storedUsername && password === storedPassword) {
-        await AsyncStorage.setItem('isLoggedIn', 'true');
-        navigation.replace('GetStarted');
-      } else {
-        alert('Invalid username or password');
-      }
-    } catch (error) {
-      console.log('Login error:', error);
-      alert('Something went wrong. Try again.');
-    }
+    //   if (username === storedUsername && password === storedPassword) {
+    //     await AsyncStorage.setItem('isLoggedIn', 'true');
+    //     navigation.replace('GetStarted');
+    //   } else {
+    //     alert('Invalid username or password');
+    //   }
+    // } catch (error) {
+    //   console.log('Login error:', error);
+    //   alert('Something went wrong. Try again.');
+    // }
   };
 
   useFocusEffect(
@@ -58,8 +59,10 @@ const SignIn = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <KeyboardAwareScrollView enableOnAndroid={true} extraScrollHeight={80}>
-        <Text style={styles.heading}>Welcome</Text>
-        <Text style={styles.heading}>Back!</Text>
+        <View>
+          <Text style={styles.heading}>Welcome</Text>
+          <Text style={styles.heading}>Back!</Text>
+        </View>
 
         <View style={styles.formWrapper}>
           <View style={styles.form}>
@@ -111,7 +114,7 @@ const SignIn = () => {
                 (!username || !password) && styles.buttonDisabled,
               ]}
               onPress={handleLogin}
-              disabled={!username || !password}
+              // disabled={!username || !password}
             >
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>

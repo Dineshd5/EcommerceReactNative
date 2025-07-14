@@ -1,15 +1,15 @@
 import React from 'react';
-import StartScreen from './screens/StartScreen';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SplashScreen from './screens/SplashScreen';
-import SignIn from './screens/SignIn';
-import SignUp from './screens/SignUp';
-import ForgetPassword from './screens/ForgotPassword';
-import GetStarted from './screens/GetStarted';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import Tabs from './Tabs'; // import your Tab navigator
+import SplashScreen from './src/screens/SplashScreen';
+import GetStarted from './src/screens/GetStarted';
+import SignIn from './src/screens/SignIn';
+import SignUp from './src/screens/SignUp';
+import ForgetPassword from './src/screens/ForgotPassword';
+import StartScreen from './src/screens/StartScreen';
+import MainTabNavigator from './src/Navigation/MainTabNavigator ';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,8 +18,8 @@ const App = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="SplashScreen"
           screenOptions={{ headerShown: false }}
+          initialRouteName="SplashScreen"
         >
           <Stack.Screen name="SplashScreen" component={SplashScreen} />
           <Stack.Screen name="StartScreen" component={StartScreen} />
@@ -27,10 +27,7 @@ const App = () => {
           <Stack.Screen name="signUp" component={SignUp} />
           <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
           <Stack.Screen name="GetStarted" component={GetStarted} />
-
-          {/* Replace Home and Trending with Tabs */}
-          <Stack.Screen name="HomeScreen" component={Tabs} />
-          <Stack.Screen name="TrendingScreen" component={Tabs} />
+          <Stack.Screen name="Main" component={MainTabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

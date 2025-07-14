@@ -2,23 +2,25 @@ import React, { useEffect } from 'react';
 import { Text, StyleSheet, Image, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
-const SplashScreen = ({ navigation }) => {
+const SplashScreen = () => {
+  const navigation = useNavigation();
+
   useEffect(() => {
     const checkAppState = async () => {
       try {
         const isFirstLaunch = await AsyncStorage.getItem('isFirstLaunch');
         const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
 
-        setTimeout(async () => {
+        setTimeout(() => {
           if (isFirstLaunch === null) {
-            // first time
-            await AsyncStorage.setItem('isFirstLaunch', 'false');
-            navigation.replace('StartScreen'); // 👈 Show onboarding screen
+            AsyncStorage.setItem('isFirstLaunch', 'false');
+            navigation.replace('StartScreen');
           } else if (isLoggedIn === 'true') {
-            navigation.replace('GetStarted'); // Already logged in
+            navigation.replace('GetStarted');
           } else {
-            navigation.replace('signIn'); // Not logged in
+            navigation.replace('signIn');
           }
         }, 2000);
       } catch (error) {
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: '800',
     fontFamily: 'LibreCaslonText-Bold',
-    lineHeight: 44, // should be equal to or slightly more than fontSize
+    lineHeight: 44,
     color: 'rgba(248, 55, 88, 1)',
     padding: 20,
   },

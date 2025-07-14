@@ -20,7 +20,7 @@ import BannerCard from '../components/BannerCard';
 import ProductCard from '../components/ProductCard';
 import { useNavigation } from '@react-navigation/native';
 
-const HomeScreen = () => {
+const TrendingScreen = () => {
   const navigation = useNavigation(); // <-- Add this
   const categories = ['Beauty', 'Fashion', 'Kids', 'Mens', 'Womens'];
 
@@ -28,7 +28,7 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.logo}>Stylish</Text>
+        <Text style={styles.logo}>hi</Text>
         <Image
           source={require('../assets/images/profile.png')}
           style={styles.avatar}
@@ -76,7 +76,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default TrendingScreen;
 
 const styles = StyleSheet.create({
   container: {

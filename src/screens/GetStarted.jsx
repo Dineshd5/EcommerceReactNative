@@ -9,10 +9,10 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import HomeBackground from '../assets/images/HomeBackground.png';
 
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 
-const GetStarted = () => {
-  const navigation = useNavigation();
+const GetStarted = ({ navigation }) => {
+  // const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -31,7 +31,7 @@ const GetStarted = () => {
 
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={() => navigation.navigate('HomeScreen')}
+              onPress={() => navigation.navigate('Main')}
             >
               <Text style={styles.buttonText}>Get Started</Text>
             </TouchableOpacity>
