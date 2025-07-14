@@ -16,10 +16,10 @@ const MainTabNavigator = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarIcon: ({ color, size }) => {
+        tabBarIcon: ({ focused, size }) => {
           let IconComponent;
           switch (route.name) {
-            case 'HomeScreen':
+            case 'Home':
               IconComponent = HomeIcon;
               break;
             case 'Wishlist':
@@ -32,16 +32,22 @@ const MainTabNavigator = () => {
               IconComponent = HomeIcon;
           }
 
-          return <IconComponent width={size} height={size} fill={color} />;
+          return (
+            <IconComponent
+              width={size}
+              height={size}
+              stroke={focused ? 'red' : 'white'} // 💡 Custom stroke color here
+              fill="none" // Make sure fill is none
+            />
+          );
         },
-        tabBarActiveTintColor: '#F83758', // your brand red
-        tabBarInactiveTintColor: '#999', // soft gray
+
         tabBarLabelStyle: {
           fontFamily: 'Montserrat-Regular',
         },
       })}
     >
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Wishlist" component={TrendingScreen} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
