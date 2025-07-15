@@ -8,32 +8,6 @@ import {
   Image,
 } from 'react-native';
 import { TrendingProductsData } from '../data/TrendingProductsData';
-// const trendingProducts = [
-//   {
-//     id: '1',
-//     image: require('../assets/images/watch.png'),
-//     title: 'IWC Schaffhausen...',
-//     price: '₹650',
-//     originalPrice: '₹1599',
-//     discount: '60% off',
-//   },
-//   {
-//     id: '2',
-//     image: require('../assets/images/shoes.png'),
-//     title: 'Labbin White Sneakers',
-//     price: '₹650',
-//     originalPrice: '₹1250',
-//     discount: '70% off',
-//   },
-//   {
-//     id: '3',
-//     image: require('../assets/images/tshirt.png'),
-//     title: 'Mammoth T-Shirt Combo',
-//     price: '₹999',
-//     originalPrice: '₹1999',
-//     discount: '50% off',
-//   },
-// ];
 
 const TrendingProducts = ({ navigation }) => {
   const renderProduct = ({ item }) => (

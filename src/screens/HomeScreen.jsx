@@ -22,7 +22,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import ViewAllComponent from '../components/ViewAllComponent.jsx';
 import Alarm from '../assets/svg/Alarm.svg';
 import Date from '../assets/svg/Date.svg';
-import { TrendingProductsData } from '../data/TrendingProductsData.js';
+import { TrendingProductsDataSmall } from '../data/TrendingProductsData.js';
 import GreaterThan from '../assets/svg/greaterThan.svg';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import SortAndFilter from '../components/SortAndFilter.jsx';
@@ -62,7 +62,9 @@ const HomeScreen = () => {
           keyExtractor={item => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => <ProductCard item={item} />}
+          renderItem={({ item }) => (
+            <ProductCard layout="horizontal" StarVisible={true} item={item} />
+          )}
         />
 
         {/* Special Offer */}
@@ -123,11 +125,17 @@ const HomeScreen = () => {
           Icon={Date}
         />
         <FlatList
-          data={TrendingProductsData}
+          data={TrendingProductsDataSmall}
           keyExtractor={item => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => <ProductCard item={item} />}
+          renderItem={({ item }) => (
+            <ProductCard
+              StarVisible={true}
+              layout="horizontalSmall"
+              item={item}
+            />
+          )}
         />
 
         <View style={{ width: 343, height: 270 }}>

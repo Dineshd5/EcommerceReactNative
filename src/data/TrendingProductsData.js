@@ -16,30 +16,14 @@ import SonyPS4 from '../assets/images/SonyPS4.png';
 
 export const TrendingProductsData = [
   {
-    id: '1',
-    image: watch,
-    title: `IWC Schaffhausen 2021 Pilot's Watch "SIHH 2019" 44mm`,
-    price: '₹650',
-    originalPrice: '₹1,599',
-    discount: '60% off',
-    rating: true,
-  },
-  {
-    id: '2',
-    image: shoes,
-    title: `Labbin White Sneakers For Men and Female`,
-    price: '₹650',
-    originalPrice: '₹1,250',
-    discount: '70% off',
-    rating: true,
-  },
-  {
     id: '3',
     image: BlackDress,
     title: `Black  Dress`,
     SubTitle: 'Neque porro quisquam est qui dolorem ipsum quia',
     price: '₹2,000',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '4',
@@ -48,6 +32,8 @@ export const TrendingProductsData = [
     SubTitle: 'This warm and comfortable jacket is great for learni...',
     price: '₹2,999',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '5',
@@ -56,6 +42,8 @@ export const TrendingProductsData = [
     SubTitle: 'D7200 Digital Camera (Nikon) In New Area...',
     price: '₹26,999',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '6',
@@ -64,6 +52,8 @@ export const TrendingProductsData = [
     SubTitle: 'Sony PS4 Console, 1TB Slim with 3 Games: Gran Turis...',
     price: '₹1,999',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '7',
@@ -72,6 +62,8 @@ export const TrendingProductsData = [
     SubTitle: '6 GB RAM | 64 GB ROM | Expandable Upto 256...',
     price: '₹13,999',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '8',
@@ -80,6 +72,8 @@ export const TrendingProductsData = [
     SubTitle: 'EARTHEN Rose Pink Embroidered Tiered Max...',
     price: '₹1900',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '9',
@@ -88,6 +82,8 @@ export const TrendingProductsData = [
     SubTitle: 'Autumn And Winter Casual cotton-padded jacket...',
     price: '₹1,600',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '10',
@@ -96,6 +92,8 @@ export const TrendingProductsData = [
     SubTitle: 'Blue cotton denim dress Look 2 Printed cotton dr...',
     price: '₹999',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '11',
@@ -104,6 +102,8 @@ export const TrendingProductsData = [
     SubTitle: 'Neque porro quisquam est qui dolorem ipsum quia',
     price: '₹1,990',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '12',
@@ -112,6 +112,8 @@ export const TrendingProductsData = [
     SubTitle: 'Neque porro quisquam est qui dolorem ipsum quia',
     price: '₹300',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '13',
@@ -120,6 +122,8 @@ export const TrendingProductsData = [
     SubTitle: 'Neque porro quisquam est qui dolorem ipsum quia',
     price: '₹1,300',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '14',
@@ -128,6 +132,8 @@ export const TrendingProductsData = [
     SubTitle: 'Neque porro quisquam est qui dolorem ipsum quia',
     price: '₹1,500',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
   },
   {
     id: '15',
@@ -136,5 +142,28 @@ export const TrendingProductsData = [
     SubTitle: 'Neque porro quisquam est qui dolorem ipsum quia',
     price: '₹900',
     rating: true,
+    reviews: 56860,
+    homeScreen: false,
+  },
+];
+
+export const TrendingProductsDataSmall = [
+  {
+    id: '1',
+    image: watch,
+    title: `IWC Schaffhausen 2021 Pilot's Watch "SIHH 2019" 44mm`,
+    price: '₹650',
+    originalPrice: '₹1,599',
+    discount: '60% off',
+    homeScreen: false,
+  },
+  {
+    id: '2',
+    image: shoes,
+    title: `Labbin White Sneakers For Men and Female`,
+    price: '₹650',
+    originalPrice: '₹1,250',
+    discount: '70% off',
+    homeScreen: false,
   },
 ];

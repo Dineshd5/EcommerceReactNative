@@ -1,23 +1,53 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { Rating } from 'react-native-ratings';
 
-const ProductCard = ({ item }) => {
+const DeviceWidth = Dimensions.get('window').width;
+console.log(DeviceWidth);
+
+const ProductCard = ({ item, StarVisible, layout }) => {
+  let cardStyle;
+  switch (layout) {
+    case 'horizontal':
+      cardStyle = styles.HorizontalCard;
+      break;
+    case 'horizontalSmall':
+      cardStyle = styles.horizontalSmall;
+      break;
+    default:
+      cardStyle = styles.GridCard;
+      break;
+  }
+
   return (
-    <View style={styles.card}>
-      <Image source={item.image} style={styles.image} />
+    <View style={cardStyle}>
+      <Image
+        source={item.image}
+        style={
+          (styles.image,
+          {
+            resizeMode: `${cardStyle === 'horizontal'} ` ? 'contain' : 'cover',
+          })
+        }
+      />
       <Text style={styles.title}>{item.title}</Text>
-      {item.SubTitle && <Text style={styles.SubTitle}>{item.SubTitle}</Text>}
+      {item.SubTitle && (
+        <Text numberOfLines={2} style={styles.SubTitle}>
+          {item.SubTitle}
+        </Text>
+      )}
       <View style={styles.priceRow}>
         <Text style={styles.price}>{item.price}</Text>
-        <View style={styles.offerPrice}>
-          <Text style={styles.strike}>{item.originalPrice}</Text>
-          <Text style={styles.offer}>{item.discount}</Text>
-        </View>
+        {item.originalPrice === null && (
+          <View style={styles.offerPrice}>
+            <Text style={styles.strike}>{item.originalPrice}</Text>
+            <Text style={styles.offer}>{item.discount}</Text>
+          </View>
+        )}
       </View>
 
       {/* Star Rating */}
-      {item.rating && (
+      {StarVisible && item.rating && (
         <View style={styles.ratingContainer}>
           <Rating type="star" readonly startingValue={4.5} imageSize={14} />
           <Text style={styles.reviewText}>{item.reviews}</Text>
@@ -30,42 +60,64 @@ const ProductCard = ({ item }) => {
 export default ProductCard;
 
 const styles = StyleSheet.create({
-  card: {
-    maxWidth: 170,
+  HorizontalCard: {
+    width: DeviceWidth / 2 - 20,
+    height: 300,
     marginRight: 12,
     marginVertical: 16,
-    borderRadius: 8,
+    borderRadius: 6,
     overflow: 'hidden',
     backgroundColor: '#fff',
     elevation: 1,
-    padding: 8,
+    padding: 4,
+    justifyContent: 'space-between',
+    alignSelf: 'flex-start', // Prevent stretching
+    flexShrink: 1, // Allow shrinking to fit content
+  },
+  GridCard: {
+    width: DeviceWidth / 2 - 20,
+    marginVertical: 8,
+    borderRadius: 6,
+    justifyContent: 'flex-start',
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+    elevation: 1,
+    padding: 4,
+  },
+
+  horizontalSmall: {
+    width: DeviceWidth / 2 - 20,
+    marginRight: 12,
+    marginVertical: 16,
+    borderRadius: 6,
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+    elevation: 1,
+    padding: 4,
   },
   image: {
-    width: '100%',
     height: 124,
-    resizeMode: 'cover',
+    width: '100%',
+    // aspectRatio: 1, // or 3/2 or 16/9 based on your image shape
     borderRadius: 4,
   },
   title: {
     fontSize: 12,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-Medium',
     lineHeight: 16,
     fontWeight: '500',
-    marginTop: 4,
   },
   SubTitle: {
     fontSize: 10,
     fontFamily: 'Montserrat-Regular',
     lineHeight: 16,
     fontWeight: '400',
-    marginTop: 4,
   },
   priceRow: {
     alignItems: 'flex-start',
     gap: 6,
     marginTop: 4,
   },
-
   price: {
     fontSize: 14,
     color: '#000',
@@ -89,10 +141,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginTop: 6,
   },
   reviewText: {
     fontSize: 12,
-    color: '#444',
+    color: 'rgba(164, 169, 179, 1)',
   },
 });
