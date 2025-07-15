@@ -5,14 +5,14 @@ import { Rating } from 'react-native-ratings';
 const ProductCard = ({ item }) => {
   return (
     <View style={styles.card}>
-      <Image source={item.Img} style={styles.image} />
+      <Image source={item.image} style={styles.image} />
       <Text style={styles.title}>{item.title}</Text>
       {item.SubTitle && <Text style={styles.SubTitle}>{item.SubTitle}</Text>}
       <View style={styles.priceRow}>
-        <Text style={styles.price}>₹{item.Offerrate}</Text>
+        <Text style={styles.price}>{item.price}</Text>
         <View style={styles.offerPrice}>
-          <Text style={styles.strike}>₹{item.ActualRate}</Text>
-          <Text style={styles.offer}>{item.Offer} OFF</Text>
+          <Text style={styles.strike}>{item.originalPrice}</Text>
+          <Text style={styles.offer}>{item.discount}</Text>
         </View>
       </View>
 

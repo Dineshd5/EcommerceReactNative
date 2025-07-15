@@ -1,8 +1,10 @@
 import { TouchableOpacity } from 'react-native';
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
-const ViewAllComponent = ({ title, timer, bgColor, Icon }) => {
+const ViewAllComponent = ({ title, timer, bgColor, Icon, route }) => {
+  const navigation = useNavigation();
   return (
     <View style={[styles.dealRow, { backgroundColor: bgColor }]}>
       <View>
@@ -12,7 +14,7 @@ const ViewAllComponent = ({ title, timer, bgColor, Icon }) => {
           <Text style={styles.timerText}>{timer}</Text>
         </View>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate(route)}>
         <Text style={styles.viewAll}>View all →</Text>
       </TouchableOpacity>
     </View>

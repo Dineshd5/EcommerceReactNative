@@ -5,7 +5,6 @@ import {
   StyleSheet,
   ScrollView,
   Image,
-  TextInput,
   FlatList,
   TouchableOpacity,
   StatusBar,
@@ -14,10 +13,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import CategoryScroll from '../components/CategoryScroll';
 import BannerCard from '../components/BannerCard';
 import ProductCard from '../components/ProductCard';
-import Search from '../assets/svg/Search.svg';
-import Mic from '../assets/svg/Mic.svg';
-import Sort from '../assets/svg/Sort.svg';
-import Filter from '../assets/svg/Filter.svg';
 import Heals from '../assets/images/healsshoe.png';
 import Special from '../assets/images/SpecialOffer.png';
 import emoji from '../assets/images/emoji.png';
@@ -27,60 +22,29 @@ import LinearGradient from 'react-native-linear-gradient';
 import ViewAllComponent from '../components/ViewAllComponent.jsx';
 import Alarm from '../assets/svg/Alarm.svg';
 import Date from '../assets/svg/Date.svg';
-import { TrendingProducts } from '../data/TrendingProducts.js';
+import { TrendingProductsData } from '../data/TrendingProductsData.js';
+import GreaterThan from '../assets/svg/greaterThan.svg';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import SortAndFilter from '../components/SortAndFilter.jsx';
+import Header from '../components/Header.jsx';
 const HomeScreen = () => {
+  const tabBarHeight = useBottomTabBarHeight();
+  console.log(tabBarHeight);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-
-      {/* Header with Drawer Menu */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Image source={require('../assets/images/MenuBar.png')} />
-        </TouchableOpacity>
-
-        <View style={styles.logoContainer}>
-          <Image
-            source={require('../assets/images/Logo.png')}
-            style={styles.logoImage}
-            resizeMode="contain"
-          />
-          <Text style={styles.logo}>Stylish</Text>
-        </View>
-
-        <Image
-          source={require('../assets/images/profile.png')}
-          style={styles.avatar}
-        />
-      </View>
-
-      {/* Search */}
-      <View style={styles.searchContainer}>
-        <Search width={28} height={28} />
-        <TextInput
-          placeholder="Search any Product..."
-          placeholderTextColor="rgba(187, 187, 187, 1)" // light gray placeholder
-          style={styles.searchInput}
-        />
-        <Mic width={24} height={24} />
-      </View>
+      <Header />
 
       {/* All Featured */}
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.featuredRow}>
-          <Text style={styles.sectionTitle}>All Featured</Text>
-          <View style={{ flexDirection: 'row', gap: 10 }}>
-            <TouchableOpacity style={styles.filterSort}>
-              <Text>Sort</Text>
-              <Sort width={16} height={16} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.filterSort}>
-              <Text>Filter</Text>
-              <Filter width={16} height={16} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: tabBarHeight,
+        }}
+      >
+        {/*  Sort And Filter*/}
+        <SortAndFilter title="All Featured" />
         {/* circle Category Scroll */}
         <CategoryScroll catagories={Allfeatures} />
 
@@ -155,10 +119,11 @@ const HomeScreen = () => {
           title="Deal of the Day"
           timer="2h 55m 20s remaining"
           bgColor="rgba(253, 110, 135, 1)"
+          route="Wishlist"
           Icon={Date}
         />
         <FlatList
-          data={TrendingProducts}
+          data={TrendingProductsData}
           keyExtractor={item => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -169,6 +134,7 @@ const HomeScreen = () => {
           <Image
             source={require('../assets/images/SummerSale.png')}
             resizeMode="contain"
+            style={{ borderRadius: 8 }}
           />
           <View
             style={{
@@ -187,9 +153,13 @@ const HomeScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <View>
+        <View style={styles.sponcerContainer}>
           <Text style={styles.Sponcer}>Sponser</Text>
           <Image source={require('../assets/images/SponcerShoe.png')} />
+          <View style={styles.offerContainer}>
+            <Text style={styles.offer}>up to 50% Off</Text>
+            <GreaterThan />
+          </View>
         </View>
       </ScrollView>
       {/* Trending Section */}
@@ -204,12 +174,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 12,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 8,
-  },
+
   specialContainer: {
     flexDirection: 'row',
     height: 84,
@@ -217,25 +182,22 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     alignItems: 'center',
   },
-  logo: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'rgba(67, 146, 249, 1)',
-    fontFamily: 'LibreCaslonText-Regular',
-  },
-  logoImage: {
-    width: 38.78,
-    height: 31.03,
-  },
-  Sponcer: {
-    fontSize: 20,
-    fontFamily: 'Montserrat-Medium',
-  },
-  featuredRow: {
+
+  offerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  offer: {
+    fontSize: 16,
+    fontFamily: 'Montserrat-Bold',
+  },
+  sponcerContainer: {},
+  Sponcer: {
+    fontSize: 20,
+    fontFamily: 'Montserrat-Medium',
+  },
+
   gradientStrip: {
     width: 11,
     height: 171,
@@ -247,7 +209,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   SummerSubText: {
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: 'Montserrat-Regular',
     lineHeight: 20,
   },
@@ -295,29 +257,6 @@ const styles = StyleSheet.create({
     width: 77.71,
     height: 156,
   },
-  filterSort: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    fontSize: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    gap: 4,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    color: '#333',
-  },
-
-  logoContainer: {
-    flexDirection: 'row',
-    gap: 9,
-  },
-
-  avatar: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-  },
   viewAll: {
     color: '#ffffff',
     borderWidth: 1,
@@ -326,21 +265,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 10,
     paddingVertical: 6,
-    fontSize: 14,
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    backgroundColor: 'rgba(255, 255, 255, 1)',
-    elevation: 2, // Android only
-    marginVertical: 12,
-    padding: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  searchInput: {
-    color: 'rgba(187, 187, 187, 1)',
-    flex: 1,
-    marginHorizontal: 10,
     fontSize: 14,
   },
 
